@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>component test</title>
+	<meta charset="UTF-8"/>
+	<!-- <link rel="import" href="./component.html"> -->
+	<style>
+	p span, 
+	p::shadow span {
+	  color: red;
+	  font-size: 18px;
+	}
+	</style>
+</head>
+<body>
+<div class="normal"><span>我是一个普通文本</span></div>
+<p class="shadow"></p>
+<script>
+  var host = document.querySelector('.shadow');
+  var root = host.createShadowRoot();
+  root.innerHTML = `
+  <style>
+  span { 
+    color: blue; 
+    font-size: 24px; 
+  } 
+  </style>
+  <span>我是一个影子文本</span>`;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "simple-music-webui",
+  "version": "0.0.1",
+  "description": "simple music webui",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run watch & npm run build:dev & npm run build:css & npm run www",
+    "commit": "browserify -t babelify -e src/index.js -o dest/index.js; stylus -c src/index.styl -o dest/",
+    "release": "cd dest; zip -r ../../assets/static.zip *",
+    "www": "livereloadx -y http://v2.fm.duokanbox.com -l -p 9002 dest/",
+    "build:dev": "watchify -d -e src/index.js -t [ babelify --sourceMapRelative . ] -o dest/index.js",
+    "build:css": "stylus -w -c src/index.styl -o dest/",
+    "watch": "watch 'npm run lint & npm run test' src/",
+    "lint": "eslint src/",
+    "test": "mocha --compilers js:babel/register src/test.js",
+
+    "clear": "adb shell pm clear com.miui.player",
+    "stop": "adb shell am force-stop com.miui.player",
+    "push": "./push.sh",
+    "home": "adb shell am start -a android.intent.action.VIEW -d miui-music://home"
+  },
+  "author": "yanyao@xiaomi.com",
+  "license": "MIT",
+  "devDependencies": {
+    "stylus": "^0.51.1",
+    "babel": "^5.4.3",
+    "babelify": "^6.0.1",
+    "browserify": "^9.0.7",
+    "eslint": "^0.21.2",
+    "mocha": "^2.2.5",
+    "uglifyify": "^3.0.1",
+    "watch": "^0.16.0",
+    "watchify": "^3.1.0"
+  }
+}

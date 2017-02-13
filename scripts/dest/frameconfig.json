@@ -1,0 +1,102 @@
+{
+    version: 1,
+    frames: [
+        {
+            authority: "home",
+            title: "",
+            pageTypes: [
+                "online",
+                "local"
+            ],
+            pageTitles: [
+                "$home_tab_online",
+                "$home_tab_local"
+            ],
+            showTab: true,
+            showTitle: false,
+            showSearch: true
+        },
+        {
+            authority: "detail",
+            title: "$list_detail_title",
+            showTab: false,
+            showTitle: true,
+            showSearch: true
+        },
+        {
+            authority: "artist",
+            title: "$artist",
+            pageTypes: [
+                "chinese",
+                "japanese_korean",
+                "europa_america"
+            ],
+            pageTitles: [
+                "$tab_chinese",
+                "$tab_japanese_korean",
+                "$tab_europa_america"
+            ],
+            showTab: true,
+            showTitle: true,
+            showSearch: true
+        },
+        {
+            authority: "all_music",
+            title: "$all_music",
+            pageTypes: [
+                "track",
+                "artist",
+                "album"
+            ],
+            pageTitles: [
+                "$tab_track",
+                "$tab_artist",
+                "$tab_album"
+            ],
+            showTab: true,
+            showTitle: true,
+            showSearch: true
+        },
+        {
+            authority: "local_music",
+            title: "$local_music",
+            pageTypes: [
+                "track",
+                "artist",
+                "album",
+                "folder"
+            ],
+            pageTitles: [
+                "$tab_track",
+                "$tab_artist",
+                "$tab_album",
+                "$tab_folder"
+            ],
+            showTab: true,
+            showTitle: true,
+            showSearch: true
+        },
+        {
+            authority: "favorite_tracks",
+            title: "$favorite_tracks",
+            pageTypes: [
+                "track",
+                "artist",
+                "album"
+            ],
+            pageTitles: [
+                "$tab_track",
+                "$tab_artist",
+                "$tab_album"
+            ],
+            showTab: true,
+            showTitle: true,
+            showSearch: true
+        },
+        {
+            authority: "search",
+            isSearchMode: true,
+            searchHint: "$search_hint"
+        }
+    ]
+}

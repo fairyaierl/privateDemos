@@ -1,0 +1,81 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>list style</title>
+    <style type="text/css">
+        .list1{
+            list-style: none;
+        }
+        .list1 li{
+            background: url(../img/hot.png) 0 50% no-repeat;
+            padding-left: 26px;
+            background-size: 1rem 1rem;
+            line-height: 25px;
+            font-size: 20px;
+        }
+
+        .list2{
+            list-style-image: url(../img/hot.png);
+        }
+
+
+        .list3 li:before{
+            content:url(../img/hot.png);
+            margin-right: 8px;
+        }
+
+        .list3 li{
+            text-indent: -68px;
+            list-style: none;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+<ul class="list1">
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+    <li>item 4</li>
+    <li>item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5</li>
+    <li>item 6</li>
+    <li>item 7</li>
+    <li>item 8</li>
+    <li>item 9</li>
+    <li>item 10</li>
+</ul>
+
+
+
+<ul class="list2">
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+    <li>item 4</li>
+    <li>item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5</li>
+    <li>item 6</li>
+    <li>item 7</li>
+    <li>item 8</li>
+    <li>item 9</li>
+    <li>item 10</li>
+</ul>
+
+
+
+<ul class="list3">
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+    <li>item 4</li>
+    <li>item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5 item 5</li>
+    <li>item 6</li>
+    <li>item 7</li>
+    <li>item 8</li>
+    <li>item 9</li>
+    <li>item 10</li>
+</ul>
+</body>
+</html>

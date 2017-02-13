@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<style type="text/css">
+	   #timings-demo {
+	     border: 1px solid #ccc;
+	     padding: 10px;
+	     height: 400px;
+	     width: 400px;
+	   }
+	     
+	  .demo-box {
+	     width: 100px;
+	     height: 50px;
+	     text-align: center;
+	     line-height: 50px;
+	     text-align: center;
+	     color: #fff;
+	     background: #96c;
+	     -moz-border-radius: 5px;
+	     -webkit-border-radius: 5px;
+	     border-radius: 5px;
+	     -moz-box-shadow: inset 0 0 5px rgba(102, 153, 0,0.5);
+	     -webkit-box-shadow: inset 0 0 5px rgba(102, 153, 0,0.5);
+	     box-shadow: inset 0 0 5px rgba(102, 153, 0,0.5);
+	     margin-bottom: 10px;
+	  }
+       
+	  #ease {
+	     -moz-transition: all 5s ease 0.3s;
+	     -webkit-transition: all 5s ease 0.3s;
+	     -o-transition: all 5s ease 0.3s;
+	     transition: all 5s ease 0.3s;
+	     background: #f36;      
+	  }
+
+	  #ease-in {
+	     -moz-transition: all 3s ease-in 0.5s;
+	     -webkit-transition: all 3s ease-in 0.5s;
+	     -o-transition: all 3s ease-in 0.5s;
+	     transition: all 3s ease-in 0.5s;
+	     background: #369;
+	  }
+
+	  #ease-out {
+	    -moz-transition: all 5s ease-out 0s;
+	    -webkit-transition: all 5s ease-out 0s;
+	    -o-transition: all 5s ease-out 0s;
+	    transition: all 5s ease-out 0s;
+	    background: #636;      
+	  }
+
+	  #ease-in-out {
+	    -moz-transition: all 1s ease-in-out 2s;
+	    -webkit-transition: all 1s ease-in-out 2s;
+	    -o-transition: all 1s ease-in-out 2s;
+	    transition: all 1s ease-in-out 2s;
+	    background: #3e6;
+	  }
+
+	  #linear {
+	    -moz-transition: all 6s linear 0s;
+	    -webkit-transition: all 6s linear 0s;
+	    -o-transition: all 6s linear 0s;
+	    transition: all 6s linear 0s;
+	    background: #999;
+	  }
+
+	  #cubic-bezier {
+	    -moz-transition: all 4s cubic-bezier 1s;
+	    -webkit-transition: all 4s cubic-bezier 1s;
+	    -o-transition: all 4s cubic-bezier 1s;
+	    transition: all 4s cubic-bezier 1s;
+	    background: #6d6;
+	  }
+
+	  #timings-demo.timings-demo-hover .demo-box,
+	    #timings-demo:hover .demo-box {
+	    -moz-transform: rotate(360deg) scale(1.2);
+	    -webkit-transform: rotate(360deg) scale(1.2);
+	    -o-transform: rotate(360deg) scale(1.2);
+	    transform: rotate(360deg) scale(1.2);
+	    background: #369;
+	    border: 1px solid rgba(255,230,255,08);
+	    -moz-border-radius: 25px;
+	    -webkit-border-radius: 25px;
+	    border-radius: 25px;
+	    margin-left: 280px;
+	    height: 30px;
+	    line-height: 30px;
+	    margin-bottom: 15px;
+	  }
+
+
+
+
+	   /*给这个按钮创建一个动名名称：buttonLight，然后在每个时间段设置不同的background,color来达到变色效果，改变box-shadow来达到发光效果*/
+	   @-webkit-keyframes 'buttonLight' {
+		   from {
+			   background: rgba(96, 203, 27,0.5);
+			   -webkit-box-shadow: 0 0 5px rgba(255, 255, 255, 0.3) inset, 0 0 3px rgba(220, 120, 200, 0.5);
+			   color: red;
+		   }
+		   25% {
+			   background: rgba(196, 203, 27,0.8);
+			   -webkit-box-shadow: 0 0 10px rgba(255, 155, 255, 0.5) inset, 0 0 8px rgba(120, 120, 200, 0.8);
+			   color: blue;
+		   }
+		   50% {
+			   background: rgba(196, 203, 127,1);
+			   -webkit-box-shadow: 0 0 5px rgba(155, 255, 255, 0.3) inset, 0 0 3px rgba(220, 120, 100, 1);
+			   color: orange;
+		   }
+		   75% {
+			   background: rgba(196, 203, 27,0.8);
+			   -webkit-box-shadow: 0 0 10px rgba(255, 155, 255, 0.5) inset, 0 0 8px rgba(120, 120, 200, 0.8);
+			   color: black;
+		   }
+		   to {
+			   background: rgba(96, 203, 27,0.5);
+			   -webkit-box-shadow: 0 0 5px rgba(255, 255, 255, 0.3) inset, 0 0 3px rgba(220, 120, 200, 0.5);
+			   color: green;
+		   }
+	   }
+
+	   a.btn {
+		   /*按钮的基本属性*/
+		   background: #60cb1b;
+		   font-size: 16px;
+		   padding: 10px 15px;
+		   color: #fff;
+		   text-align: center;
+		   text-decoration: none;
+		   font-weight: bold;
+		   text-shadow: 0 -1px 1px rgba(0,0,0,0.3);
+		   -moz-border-radius: 5px;
+		   -webkit-border-radius: 5px;
+		   border-radius: 5px;
+		   -moz-box-shadow: 0 0 5px rgba(255, 255, 255, 0.6) inset, 0 0 3px rgba(220, 120, 200, 0.8);
+		   -webkit-box-shadow: 0 0 5px rgba(255, 255, 255, 0.6) inset, 0 0 3px rgba(220, 120, 200, 0.8);
+		   box-shadow: 0 0 5px rgba(255, 255, 255, 0.6) inset, 0 0 3px rgba(220, 120, 200, 0.8);
+		   /*调用animation属性，从而让按钮在载入页面时就具有动画效果*/
+		   -webkit-animation-name: "buttonLight"; /*动画名称，需要跟@keyframes定义的名称一致*/
+		   -webkit-animation-duration: 5s;/*动画持续的时间长*/
+		   -webkit-animation-iteration-count: infinite;/*动画循环播放的次数*/
+	   }
+
+
+
+
+	   /*定义方型转化为圆型的动画round*/
+	   @-webkit-keyframes 'round' {
+		   from{
+			   -webkit-transform: rotate(36deg);
+			   -webkit-border-radius: 2px;
+		   }
+		   10%{
+			   -webkit-transform: rotate(72deg);
+			   -webkit-border-radius: 4px;
+		   }
+		   20% {
+			   -webkit-transform: rotate(108deg);
+			   -webkit-border-radius: 6px;
+		   }
+		   30% {
+			   -webkit-transform: rotate(144deg);
+			   -webkit-border-radius: 9px;
+		   }
+		   40%{
+			   -webkit-transform: rotate(180deg);
+			   -webkit-border-radius: 12px;
+		   }
+		   50%{
+			   -webkit-transform: rotate(216deg);
+			   -webkit-border-radius: 14px;
+		   }
+		   60% {
+			   -webkit-transform: rotate(252deg);
+			   -webkit-border-radius: 16px;
+		   }
+		   70% {
+			   -webkit-transform: rotate(288deg);
+			   -webkit-border-radius: 19px;
+		   }
+		   80%{
+			   -webkit-transform: rotate(324deg);
+			   -webkit-border-radius: 22px;
+		   }
+		   to {
+			   -webkit-transform: rotate(360deg);
+			   -webkit-border-radius: 25px;
+		   }
+	   }
+	   /*给方型box一个初步样式*/
+	   a.box {
+		   display: block;
+		   width: 50px;
+		   height: 50px;
+		   background: red;
+		   margin-bottom: 20px;
+	   }
+	   /*圆型box的样式，并在这里应用animation*/
+	   a.round {
+		   -webkit-border-radius: 25px;
+		   -moz-border-radius: 25px;
+		   border-radius: 25px;
+		   background: green;
+		   -webkit-animation-name: 'round'; /*动画名称*/
+		   -webkit-animation-duration: 60s;/*播放一次所持续时间*/
+		   -webkit-animation-timing-function: ease;/*动画播放频率*/
+		   -webkit-animation-iteration-count: infinite;/*动画播放次涒为无限次*/
+	   }
+
+	   /*click button效果*/
+	   .click-btn {
+		   background: rgba(125,220,80,0.8);
+		   -moz-border-radius: 5px;
+		   -webkit-border-radius: 5px;
+		   border-radius: 5px;
+		   -webkit-box-shadow: inset 0 0 8px rgba(255,255,255,0.8),0 0 10px rgba(10,255,120,0.3);
+		   -moz-box-shadow: inset 0 0 8px rgba(255,255,255,0.8),0 0 10px rgba(10,255,120,0.3);
+		   box-shadow: inset 0 0 8px rgba(255,255,255,0.8),0 0 10px rgba(10,255,120,0.3);
+		   padding: 5px 10px;
+		   color: #369;
+		   font-size: 16px;
+		   font-weight: bold;
+		   text-align: center;
+		   text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+		   cursor: pointer;
+	   }
+	</style>
+</head>
+<body>
+<a id="timings-demo-btn">click</a>
+  <div id="timings-demo">
+    <div id="ease" class="demo-box">Ease</div>
+    <div id="ease-in" class="demo-box">Ease-in</div>
+    <div id="ease-out" class="demo-box">Ease-out</div>
+    <div id="ease-in-out" class="demo-box">Ease-in-out</div>
+    <div id="linear" class="demo-box">Linear</div>
+    <div id="cubic-bezier" class="demo-box">Cubic-bezier</div>
+  </div>
+
+
+
+
+<a href="" class="btn">发光的button</a>
+
+
+
+<a href="#" class="box"></a>
+<span class="click-btn">Click</span>
+
+  <script type="text/javascript" src="../js/jquery-2.1.4.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+     $("#timings-demo-btn").toggle(
+        function(){
+          $(this).next("div#timings-demo").addClass("timings-demo-hover");
+        },function(){
+          $(this).next("div#timings-demo").removeClass("timings-demo-hover");
+     });
+
+		$(".click-btn").click(function(){
+			$(this).siblings().addClass("round");
+		});
+  });
+  </script>
+
+</body>
+</html>

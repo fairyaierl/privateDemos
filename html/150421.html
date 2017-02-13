@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta >
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<header></header>
+	<section>
+		<div class="">
+
+		</div>
+	</section>
+	<section>
+		<div class="">  </div>
+	</section>
+	<aside></aside>
+	<footer></footer>
+
+<script type="text/javascript" src=""></script>
+<script type="text/javascript">
+
+
+var type = 'block';
+
+function Paint(type){
+	this.type = type;
+}
+
+Paint.prototype.getEle= function() {
+	var ele = document.createElement('div');
+	ele.className = this.type;
+	ele.style = "position:absolute;left:"+(x-50)+"px;top:"+(y-50)+"px";
+	return ele;
+};
+
+var block = new Paint('block');
+
+block.draw();
+
+var circle = new Paint('circle');
+
+circle.draw();
+
+document.querySelector('body').addListener('click',function(e){
+	var x = e.pageX,
+                       y = e.pageY;
+
+                if(type=="xxx"){ 
+		var ele = block.getEle();
+		document.appendChild(ele);
+		ele.onclick = function(){
+		       console.log(111111)
+		}
+	}else{
+		var ele = circle.getEle();
+		document.appendChild(ele);
+		ele.onclick = function(){
+		       console.log(111111);
+		       ele.__pre = 1;
+		}
+	}
+},false)
+
+
+
+</script>
+</body>
+</html>

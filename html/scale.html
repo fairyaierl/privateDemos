@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+	.scaleY-top{
+		height:200px;
+		width:200px;
+		background: #000;
+		position:relative;
+	}
+	.scaleY-top:after{
+		content:'';
+		display: block;
+		height:200px;
+		width:200px;
+		background: red;
+		position: absolute;
+		left: 0;
+		top:0;
+		-webkit-transform: scaleY(.5); 
+	             transform: scaleY(.5);
+	}
+
+
+	.scaleY-bottom{
+		height:200px;
+		width:200px;
+		background: #000;
+		margin-top:200px;
+		position:relative;
+	}
+	.scaleY-bottom:after{
+		content:'';
+		display: block;
+		height:200px;
+		width:200px;
+		background: red;
+		position: absolute;
+		left: 0;
+		bottom:0;
+		-webkit-transform: scaleY(.5); 
+	             transform: scaleY(.5);
+	}
+
+
+	.scaleX-left{
+		height:200px;
+		width:200px;
+		background: #000;
+		margin-top:200px;
+		position:relative;
+	}
+	.scaleX-left:after{
+		content:'';
+		display: block;
+		height:200px;
+		width:200px;
+		background: red;
+		position: absolute;
+		left: 0;
+		top: 0;
+		-webkit-transform: scaleX(.5); 
+	             transform: scaleX(.5);
+	}
+
+
+	.scaleX-right{
+		height:200px;
+		width:200px;
+		background: #000;
+		margin-top:200px;
+		position:relative;
+	}
+	.scaleX-right:after{
+		content:'';
+		display: block;
+		height:200px;
+		width:200px;
+		background: red;
+		position: absolute;
+		right: 0;
+		top:0;
+		-webkit-transform: scaleX(.5); 
+	             transform: scaleX(.5);
+	}
+	</style>
+</head>
+<body>
+<div class="scaleY-top"></div>
+
+<div class="scaleY-bottom"></div>
+
+<div class="scaleX-left"></div>
+
+<div class="scaleX-right"></div>
+
+
+
+</body>
+</html>

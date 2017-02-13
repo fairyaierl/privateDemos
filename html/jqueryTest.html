@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Jquery测试页面</title>
+    <style type="text/css">
+        .blue {color: blue;}
+
+        .highlight {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+<!--<ul id="mylist">-->
+    <!--<li>item 1</li>-->
+    <!--<li>item 2</li>-->
+    <!--<li>item 3</li>-->
+    <!--<li>item 4</li>-->
+<!--</ul>-->
+<!--<div id="content">content文段</div>-->
+<!--<div id="logo">logo</div>-->
+
+
+<div class="demo2">
+    <p class="blue">Click to toggle (<span>clicks: 0</span>)</p>
+    <p class="blue highlight">highlight (<span>clicks: 0</span>)</p>
+    <p class="blue">on these (<span>clicks: 0</span>)</p>
+    <p class="blue">paragraphs (<span>clicks: 0</span>)</p>
+</div>
+
+<script src="../js/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+//        var li = $( "#mylist li:first").clone().appendTo( "#mylist" );
+//        // Another approach to the same problem:
+//        $( "#mylist" ).append( $( "#mylist li:first" ) );
+//
+//        var myNewElement = $( "<p>New element</p>" );
+//        myNewElement.appendTo( "#content" );
+//        myNewElement.insertAfter( "ul:last" ); // This will remove the p from #content!
+//        $( "ul" ).last().after( myNewElement.clone() ); // Clone the p so now we have two.
+//
+//
+//        var logo1 = $("#logo");
+//        var logo2 = $("#logo");
+//        alert(logo1===logo2);
+//        alert(logo1.get(0)===logo2.get(0));
+
+        var count = 0;
+        $(".demo2 p").each(function(){
+            var $thisParagraph = $(this);
+            var count = 0;
+            $thisParagraph.click(function(){
+                count++;
+                $thisParagraph.find("span").text("clicks:" + count);
+                $thisParagraph.toggleClass("highlight", count%3 == 0);
+            });
+        });
+
+//        $( ".demo2" ).data( "keyName", { foo: "bar" } );
+//        alert(JSON.stringify($( ".demo2" ).data( "keyName" )));
+//
+//
+//        $.each([ "foo", "bar", "baz" ], function( idx, val ) {
+//            alert( "element " + idx + " is " + val );
+//        });
+//
+//
+//        var firstObject = { foo: "bar", a: "b" };
+//        var secondObject = { foo: "test" };
+//
+//        var newObject = $.extend( firstObject, secondObject );
+//
+//        alert( JSON.stringify(firstObject)); // "baz"
+//        alert( JSON.stringify(newObject)); // "baz"
+
+
+
+        var myFunction = function() {
+            alert(this);
+        };
+        var myObject = {
+            foo: "bar"
+        };
+
+        myFunction(); // window
+
+        var myProxyFunction = $.proxy( myFunction, myObject );
+
+        myProxyFunction(); // myObject
+
+
+
+
+        $( "li" ).map( function(index, element) {
+            return this.className;
+        }).get();
+
+
+
+    });
+
+
+
+</script>
+
+</body>
+</html>

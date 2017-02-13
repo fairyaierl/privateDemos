@@ -1,0 +1,16 @@
+gap = 30px
+
+//kolor = (tag #ff6c00) (bbb 123)
+kolor_tag = #ff6c00
+
+_alpha(percent)
+  rgba(0,0,0, percent)
+
+_round(percent, radius)
+  border 1px solid _alpha(percent)
+  border-radius radius
+
+single_line()
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis

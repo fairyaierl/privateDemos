@@ -1,0 +1,13 @@
+env:
+  browser: true
+  es6: true
+
+ecmaFeatures:
+  modules: true
+
+rules:
+  strict: 0
+  no-console: 0
+  no-underscore-dangle: 0
+  camelcase: [0, {properties: "never"}]
+  quotes: [2, single]

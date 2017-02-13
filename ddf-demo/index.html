@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>ddf-demo</title>
+	<style type="text/css">
+	#scroll-1 {
+	width:200px;
+	height:200px;
+	overflow:auto;
+	}
+	#scroll-1 div {
+	width:400px;
+	height:400px;
+	}    #scroll-1::-webkit-scrollbar {
+	width:10px;
+	height:10px;
+	}
+	#scroll-1::-webkit-scrollbar-button    {
+	background-color:#FF7677;
+	}
+	#scroll-1::-webkit-scrollbar-track     {
+	background:#FF66D5;
+	}
+	#scroll-1::-webkit-scrollbar-track-piece {
+	background:url(http://www.lyblog.net/wp/wp-content/themes/mine/img/stripes_tiny_08.png);
+	}
+	#scroll-1::-webkit-scrollbar-thumb{
+	background:#FFA711;
+	border-radius:4px;
+	}
+	#scroll-1::-webkit-scrollbar-corner {
+	background:#82AFFF;
+	}
+	#scroll-1::-webkit-scrollbar-resizer  {
+	background:#FF0BEE;
+	}
+	</style>
+</head>
+<body>
+<button id="change">获取新数据</button>
+<div class="main">
+<div id='scroll-1'>
+        <div >
+            <p>请选择Webkit内核的浏览器才可以正常的看到滚动条的变化。
+                小天地，大世界是一个Web前端的技术博客。 主要是关于
+                HTML 5,CSS 3,JavaScript,JQuery等。除此之外，还
+                包含一些PHP语言等的实用例子。</p>
+            <p>请选择Webkit内核的浏览器才可以正常的看到滚动条的变化。
+                小天地，大世界是一个Web前端的技术博客。 主要是关于
+                HTML 5,CSS 3,JavaScript,JQuery等。除此之外，还
+                包含一些PHP语言等的实用例子。</p>
+            <p>请选择Webkit内核的浏览器才可以正常的看到滚动条的变化。
+                小天地，大世界是一个Web前端的技术博客。 主要是关于
+                HTML 5,CSS 3,JavaScript,JQuery等。除此之外，还
+                包含一些PHP语言等的实用例子。</p>
+            <p>请选择Webkit内核的浏览器才可以正常的看到滚动条的变化。
+                小天地，大世界是一个Web前端的技术博客。 主要是关于
+                HTML 5,CSS 3,JavaScript,JQuery等。除此之外，还
+                包含一些PHP语言等的实用例子。</p>
+            <p>请选择Webkit内核的浏览器才可以正常的看到滚动条的变化。
+                小天地，大世界是一个Web前端的技术博客。 主要是关于
+                HTML 5,CSS 3,JavaScript,JQuery等。除此之外，还
+                包含一些PHP语言等的实用例子。</p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function $id(id) {
+	return document.querySelector(id);
+}
+// dom diff
+var ddf = (function() {
+
+	var previd = "";
+
+	var createEle = function(id, str) {
+		var ele = document.createElement('div');
+		ele.id = "miui_domdiff_" + id;
+		ele.innerHTML = str;
+		return ele;
+	}
+
+	var insertEle = function(newNode, thisNode) {
+		var parentNode = thisNode.parentNode;
+		if (parentNode.lastChild == thisNode) {
+			parentNode.appendChild(newNode);
+		} else {
+			parentNode.insertBefore(newNode, thisNode.nextSibling);
+		}
+
+	}
+
+	return {
+		isfirstLoad: function() {
+			return $id('body').classList.contains('firstload');
+		},
+		setPrevId: function(id) {
+			previd = id;
+		},
+		getPrevId: function() {
+			return previd;
+		},
+		reRender: function(id, str) {
+			document.querySelector("#miui_domdiff_" + id).innerHTML = str;
+		},
+		wrapper: function(id, str) {
+			return "<div id=miui_domdiff_" + id + " data-id="+id+">" + str + "</div>";
+		},
+		insertNode: function(section, id, str) {
+			var newNode = createEle(id, str);
+			var thisNode = document.querySelector("#miui_domdiff_" + previd);
+			if(thisNode){
+				insertEle(newNode, thisNode);
+			}else{
+				section.insertBefore(newNode, section.firstChild);
+			}
+		},
+		removeNode: function(id) {
+			var thisNode = document.querySelector("#miui_domdiff_" + id);
+			var parentNode = thisNode.parentNode;
+			parentNode.removeChild(thisNode);
+		},
+		isSame: function(str1, str2) {
+			if (typeof str1 != "string") {
+				str1 = JSON.stringify(str1);
+			}
+			if (typeof str2 != "string") {
+				str2 = JSON.stringify(str2);
+			}
+			return str1===str2;
+		}
+	}
+}())
+
+
+var data1 = {
+	groups: [{
+		id: 1,
+		name: "name1"
+	}, {
+		id: 2,
+		name: "name2"
+	}, {
+		id: 3,
+		name: "name3"
+	}, {
+		id: 4,
+		name: "name4"
+	}, ],
+	ver: 1,
+}
+
+var data2 = {
+	// groups: [{
+	// 	id: 6,
+	// 	name: "name6 new"
+	// }, {
+	// 	id: 5,
+	// 	name: "name5 new"
+	// }, {
+	// 	id: 4,
+	// 	name: "name4 new"
+	// }, {
+	// 	id: 3,
+	// 	name: "name3 new"
+	// }, {
+	// 	id: 2,
+	// 	name: "name2 new"
+	// }, {
+	// 	id: 1,
+	// 	name: "name1"
+	// }],
+	groups: [{
+		id: 4,
+		name: "name4"
+	}, {
+		id: 2,
+		name: "name2"
+	}, {
+		id: 1,
+		name: "name1"
+	}],
+	ver: 2,
+}
+
+// if (!ddf.isfirstLoad()) {
+// 	render1(data1);	
+// }
+
+document.getElementById("change").addEventListener("click", function(){
+	render1After(data1, data2);
+})
+
+function getLsDataByid($ret, id) {
+	$ret = $ret.groups;
+	for (var i = 0, len = $ret.length; i < len; i++) {
+		if ($ret[i].id == id) {
+			return $ret[i];
+		}
+	}
+	return null;
+}
+
+
+function render1(ret) {
+	if (typeof ret === "string") {
+		ret = parse(ret);
+	};
+	var $ret = ret.groups;
+	var html = "";
+	for (var i = 0, len = $ret.length; i < len; i++) {
+		html += ddf.wrapper($ret[i].id, $ret[i].id+":"+$ret[i].name);
+	}
+
+	$id('.main').innerHTML = html;
+	$id('body').classList.add('firstload');
+}
+
+function render1After(ret_ls, ret) {
+	if (typeof ret == "string") {
+		ret = parse(ret);
+	}
+	if (typeof ret_ls == "string") {
+		ret_ls = parse(ret_ls);
+	}
+	//如果两个数据一样，直接返回
+	if (ddf.isSame(ret.ver, ret_ls.ver)) {
+		console.log('issame_data_ver')
+		return;
+	}
+	var $ret = ret.groups;
+	var html = "";
+	for (var i = 0, len = $ret.length; i < len; i++) {
+		var id = $ret[i].id;
+		var ls_data = getLsDataByid(ret_ls, id);
+
+		//如果数据一致
+		if (ddf.isSame(ls_data, $ret[i])) {
+			console.log('数据相同:'+id)
+			var prevNode = $id("#miui_domdiff_"+id).previousSibling;
+			if((!prevNode  && !ddf.getPrevId())|| (prevNode && ddf.getPrevId() == prevNode.dataset.id)){
+			}else{
+				html = $ret[i].id+":"+$ret[i].name;
+				ddf.removeNode(id);
+				ddf.insertNode($id(".main"), id, html);
+				console.log('数据相同，顺序不对，重新添加:'+id);
+			}
+		//如果缓存里面存在历史数据，但是2个md5值不一样
+		} else if (ls_data && $ret[i]) {
+			html = $ret[i].id+":"+$ret[i].name;
+			var prevNode = $id("#miui_domdiff_"+id).previousSibling;
+			if((!prevNode  && !ddf.getPrevId())|| (prevNode && ddf.getPrevId() == prevNode.dataset.id)){
+				ddf.reRender(id, html);
+				console.log('数据不同，顺序相同，重新渲染:'+id)
+			}else{
+				ddf.removeNode(id);
+				ddf.insertNode($id(".main"), id, html);
+				console.log('数据不同，顺序不对，重新添加:'+id);
+			}
+		//如果缓存里面没有值，那么就在prevId后面追加该节点
+		} else if(!ls_data && $ret[i]){
+			html =$ret[i].id+":"+$ret[i].name;
+			ddf.insertNode($id(".main"), id, html);
+			console.log('添加组:'+id)
+		}		
+		console.log("节点"+id+"之前为"+ddf.getPrevId());
+		ddf.setPrevId(id);
+	}
+	var lastNode = $id("#miui_domdiff_"+ddf.getPrevId());
+	while(lastNode.nextSibling){
+		lastNode.parentNode.removeChild(lastNode.nextSibling);
+	}
+	ddf.setPrevId("");
+	$id('body').classList.add('twiceload');
+}
+	
+</script>
+</body>
+</html>

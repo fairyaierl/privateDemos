@@ -1,0 +1,22 @@
+<template>
+    <style>
+        .coloured {
+            color: red;
+        }
+    </style>
+    <p>My favorite colour is: <strong class="coloured">Red</strong></p>
+</template>
+<script>
+    (function() {
+        var element = Object.create(HTMLElement.prototype);
+        var template = document.currentScript.ownerDocument.querySelector('template').content;
+        element.createdCallback = function() {
+            var shadowRoot = this.createShadowRoot();
+            var clone = document.importNode(template, true);
+            shadowRoot.appendChild(clone);
+        };
+        document.registerElement('favorite-colour', {
+            prototype: element
+        });
+    }());
+</script>
