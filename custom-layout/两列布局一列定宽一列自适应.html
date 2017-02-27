@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>两列布局， 一列定宽，一列自适应</title>
+	<style type="text/css">
+	.container{
+		border: 1px solid #000;
+		margin-bottom: 10px;
+	}
+	.left{
+		background: pink;
+		width:200px;
+	}
+	.right{
+		background: lightblue;
+	}
+	p{
+		margin:0;
+	}
+	.footer{
+		background: blue;
+	}
+
+	.container1{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container1 .left{
+		float:left;
+	}
+	.container1 .right{
+		margin-left: 220px;
+	}
+	.container1 .right p{
+		clear:both;
+	}
+
+	.container2{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container2 .left{
+		float:left;
+		position: relative; //提升层级，防止右侧元素层叠在左侧元素上
+	}
+	.container2 .rightWrap{
+		float:left;
+		width:100%;
+		margin-left: -200px;
+	}
+	.container2 .right{
+		margin-left: 220px;
+	}
+/*	.container2 .right p{
+		clear:both;
+	}
+	.container2 .rightWrap:after{
+		content:'';
+		clear:both;
+	}*/
+
+	.container3{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container3 .left{
+		float:left;
+		margin-right: 20px;
+	}
+	.container3 .right{
+		float: left;
+		width: calc(100% - 220px);
+	}
+
+	.container4{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container4 .left{
+		float:left;
+		margin-right: 20px;
+	}
+	.container4 .right{
+		overflow: hidden;
+		zoom: 1;
+	}
+
+	.container5{
+		font-size: 0;
+	}
+	.container5 .left{
+		font-size: 16px;
+		display: inline-block;
+		vertical-align: top;
+		margin-right: 20px;
+	}
+	.container5 .right{
+		font-size: 16px;
+		display: inline-block;
+		vertical-align: top;
+		width: calc(100% - 220px);
+	}
+	.container5 .footer{
+		font-size: 16px;
+	}
+
+	.container6{
+		font-size: 0;
+	}
+	.container6 .left{
+		font-size: 16px;
+		display: inline-block;
+		vertical-align: top;
+		position: relative;
+	}
+	.container6 .rightWrap{
+		font-size: 16px;
+		display: inline-block;
+		vertical-align: top;
+		width: 100%;
+		margin-left: -200px;
+	}
+	.container6 .rightWrap .right{
+		margin-left: 220px;
+	}
+	.container6 .footer{
+		font-size: 16px;
+	}
+
+	.container7{
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+	}
+	.container7 .left, .container7 .rightWrap{
+		display: table-cell;
+	}
+	.container7 .rightWrap .right{
+		margin-left: 20px;
+	}
+
+	.container8{
+		position: relative;
+		height: 100px;
+	}
+	.container8 .left{
+		position:absolute;
+		left:0;
+	}
+	.container8 .right{
+		position:absolute;
+		left: 220px;
+		right:0;
+	}
+
+	.container9{
+		display: flex;
+	}
+	.container9 .right{
+		flex-grow: 1;
+		margin-left: 20px;
+	}
+
+
+	</style>
+</head>
+<body>
+	<div>思路一：float</div>
+	<div class="container container1">
+		<div class="left">
+			<p>float + margin</p>
+		</div>
+		<div class="right">
+			<p>[缺点1]IE6-浏览器下3像素bug，具体表现在右侧首行文字会向右偏移3px。解决办法是在left元素上设置margin-right: -100px</p>
+			<p>[缺点2]当右侧容器中有元素清除浮动时，会使该元素不与左侧浮动元素同行，从而出现文字下沉现象</p>
+		</div>	
+	</div>
+
+	<div class="container container2">
+		<div class="left">
+			<p>float + margin+(fix) 通过增加结构解决上述问题</p>
+		</div>
+		<div class="rightWrap">
+			<div class="right">
+				<p>计算后的rightWrap的负margin值，使两列元素在同一行显示。两列之间的间距由.right的margin值确定。</p>
+				<p>由于右侧元素会层叠在左侧元素之上，.left需要使用relative来提升层级</p>
+			</div>
+		</div>	
+	</div>
+
+	<div class="container container3">
+		<div class="left">
+			<p>float + margin+calc</p>
+		</div>
+		<div class="right">
+			<p>使用calc计算。</p>
+			<p>可能有兼容性问题，消耗性能。</p>
+		</div>
+	</div>
+
+	<div class="container container4">
+		<div class="left">
+			<p>float + overflow</p>
+		</div>
+		<div class="right">
+			<p>生成BFC，来阻止浮动造成的文字环绕效果。</p>
+			<p>使用overflow不会改变元素的宽度属性，所以不需要重新设置宽度。由于设置overflow:hidden并不会触发IE6-浏览器的haslayout属性，所以需要设置zoom:1来兼容IE6-浏览器</p>
+		</div>
+	</div>
+
+	<div>思路二：inline-block</div>
+
+	<div class="container container5">
+		<div class="left">
+			<p>inline-block+margin+calc</p>
+		</div>
+		<div class="right">
+			<p>需要设置垂直对齐方式vertical-align，则需要处理换行符解析成空格的间隙问题。</p>
+			<p>IE7-浏览器不支持给块级元素设置inline-block属性，兼容代码是display:inline;zoom:1;</p>
+		</div>
+	</div>
+
+	<div class="container container6">
+		<div class="left">
+			<p>inline-block+margin+(fix)</p>
+		</div>
+		<div class="rightWrap">
+			<div class="right">
+				<p>需要设置垂直对齐方式vertical-align，则需要处理换行符解析成空格的间隙问题。</p>
+				<p>IE7-浏览器不支持给块级元素设置inline-block属性，兼容代码是display:inline;zoom:1;</p>
+			</div>
+		</div>
+	</div>
+
+	<div>思路三：table布局</div>
+
+	<div class="container container7">
+		<div class="left">
+			<p>table</p>
+		</div>
+		<div class="rightWrap">
+			<div class="right">
+				<p>使用table布局的缺点是元素被设置为table后，内容撑开宽度，所以需要设置width:100%。</p>
+				<p>由于table-cell元素无法设置margin，若需要在元素间设置间距，需要增加结构</p>
+			</div>
+		</div>
+	</div>
+
+	<div>思路四：absolute</div>
+
+	<div class="container container8">
+		<div class="left">
+			<p>absolute</p>
+		</div>
+		<div class="right">
+			<p>父元素无法由子元素撑开，所以要设定父元素高度</p>
+			<p>由于table-cell元素无法设置margin，若需要在元素间设置间距，需要增加结构</p>
+		</div>
+	</div>
+
+	<div>思路五：flex</div>
+
+	<div class="container container9">
+		<div class="left">
+			<p>flex</p>
+		</div>
+		<div class="right">
+			<p>父元素无法由子元素撑开，所以要设定父元素高度</p>
+			<p>由于table-cell元素无法设置margin，若需要在元素间设置间距，需要增加结构</p>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

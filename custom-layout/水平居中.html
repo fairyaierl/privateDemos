@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>水平居中</title>
+	<style type="text/css">
+	.item{
+		background: lightblue;
+		display: inline-block;
+	}
+	.container{
+		background: green;
+	}
+
+	.container1{
+		text-align: center;
+	}
+
+	.container2 .item{
+		margin: 0 auto;
+		display: table;
+	}
+
+	.container3{
+		position: relative;
+		height: 20px;
+	}
+	.container3 .item{
+		position: absolute;
+		left:0;
+		right:0;
+		width:500px;
+		margin:0 auto;
+	}
+
+	.container4{
+		position: relative;
+		height: 20px;
+	}
+	.container4 .item{
+		position: absolute;
+		left: 50%;
+		--webkit-transform: translateX(-50%);
+		transform: translateX(-50%);
+	}
+
+	.container5{
+		position: relative;
+		height:60px;
+	}
+	.container5 .item-wrap{
+		position: absolute;
+		left: 50%;
+	}
+	.container5 .item-wrap .item{
+		position: relative;
+		left: -50%;
+	}
+
+	.container6{
+		position: relative;
+		height:60px;
+	}
+	.container6 .item-wrap{
+		position: absolute;
+		left: 50%;
+	}
+	.container6 .item-wrap .item{
+		position: relative;
+		width: 400px;
+		margin-left: -50%;
+	}
+
+	.container7{
+		display: flex;
+		justify-content: center;
+	}
+
+	.container8{
+		display: flex;
+	}
+	.container8 .item{
+		margin:0 auto;
+	}
+	
+	</style>
+</head>
+<body>
+	<div>text-align适合子元素是行内元素的</div>
+	<div class="container container1">
+		<div class="item">内容</div>
+		<div class="item">内容</div>
+		<div class="item">内容</div>
+	</div>
+	<div>margin</div>
+	<div class="container container2">
+		<div class="item">table具有包裹性，宽度由内容撑开</div>
+	</div>
+	<div>margin:auto</div>
+	<div class="container container3">
+		<div class="item">绝对定位配合margin:0 auto;</div>
+	</div>
+	<div>absolute+translate</div>
+	<div class="container container4">
+		<div class="item">translate函数的百分比是相对于自身宽度的</div>
+	</div>
+	<div>absolute+relative</div>
+	<div class="container container5">
+		<div class="item-wrap">
+			<div class="item">relative数值型的偏移属性是相对于自身的，但百分比却是相对于包含块的。子元素已经设置为absolute，所以需要增加一层结构，使其宽度与子元素宽度相同</div>
+		</div>
+	</div>
+	<div>absolute+负margin</div>
+	<div class="container container6">
+		<div class="item-wrap">
+			<div class="item">margin的百分比是相对于包含块的，所以需要增加一层结构。由于宽度width的默认值是auto，当设置负margin时，width也会随着变大。所以此时需要定宽处理</div>
+		</div>
+	</div>
+	<div>flex</div>
+	<div class="container container7">
+		<div class="item">使用flex布局特性</div>
+	</div>
+	<div>flex+margin</div>
+	<div class="container container8">
+		<div class="item">flex+margin</div>
+	</div>
+</body>
+</html>

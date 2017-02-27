@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+/*		@media(max-width:300px){
+			.test{
+				background: pink;
+			}
+		}*/
+		@media(min-width:500px){
+			.test{
+				background: grey;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="test">
+	测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块测试块
+</div>
+<div>
+	window.matchMedia()方法可以用来检查css的mediaQuery语句。接收一个mediaQuery字符串作为参数，返回MediaQueryList对象，该对象有media和matches两个属性。
+
+</div>
+<script type="text/javascript">
+	var mql = window.matchMedia("(min-width:1000px)");
+	mqCallback(mql);
+	mql.addListener(mqCallback);
+
+	function mqCallback(mql) {
+		if (mql.matches) {
+			document.body.style.background = 'pink';
+		} else {
+			document.body.style.background = 'lightblue';
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	.box{
+		display: -webkit-flex;
+		display: flex;
+		/*flex-direction: row;*/ /*主轴方向，即项目排列的方向*/
+		/*flex-wrap: wrap-reverse;*/ /*非一行时，是否换行*/
+		flex-flow: row nowrap; /*flex-direction和flex-wrap结合*/
+		justify-content: flex-start; /*项目在主轴上的对齐方式*/
+		align-items: flex-start; /*项目在交叉轴上的对齐方式*/
+		align-content: center; /*多根轴线时，轴线对齐方向*/
+		height: 300px;
+		border: 1px solid #000;
+	}
+	.item{
+		width: 20%;
+		height: 100px;
+		background: red;
+		color: #fff;
+		text-align: center;
+		margin: 10px;
+	}
+	.item1{
+		height: 150px;
+		/*项目的顺序，数值越小，排列越靠前*/
+		order:5;  
+		/*项目放大比例，可以理解为存在剩余空间时，项目占用比例，默认是0*/
+		/*flex-grow: 2; */
+		/*项目缩小比例，可以理解为如果空间不足，项目缩小比例，0为不缩小，默认是1*/
+		/*flex-shrink: 0;*/
+		/*flex-grow flex-shrink flex-basis结合， 默认是0 1 auto，auto表示1 1 auto， none表示0 0 auto*/
+		flex: 2 0 auto;
+		/*项目自身的对齐方式，可覆盖aligh-items属性*/
+		align-self: flex-end;
+
+	}
+	.item2{
+		height: 200px;
+		/*flex-grow: 1;*/
+		/*flex-shrink: 0;*/
+		flex: 1 0 auto;
+	}
+	</style>
+</head>
+<body>
+<div class="box">
+	<div class="item item1">1</div>
+	<div class="item item2">2</div>
+	<div class="item">3</div>
+	<div class="item">4</div>
+	<div class="item">5</div>
+	<div class="item">6</div>
+</div>
+<!-- <script type="text/javascript" src="test.js"></script> -->
+</body>
+</html>

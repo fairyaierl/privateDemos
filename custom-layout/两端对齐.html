@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>两端对齐</title>
+	<style type="text/css">
+	.item{
+		background: lightblue;
+		display: inline-block;
+	}
+	.container{
+		background: green;
+	}
+	.container1{
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-pack: justify;
+		-ms-flex-pack: justify;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+	}
+	.container2{
+		text-align: justify;
+		text-align-last: justify;
+	}
+	.container3{
+		text-align: justify;
+		height:21px;
+		overflow: hidden;
+	}
+	.container3:after{
+		content:'';
+		width:100%;
+		display: inline-block;
+	}
+	.container4{
+		-webkit-column-count:3;
+		-moz-column-count:3;
+		column-count:3;
+	}
+	.container4 .item{
+		display: block;
+	}
+	</style>
+</head>
+<body>
+	<div>flex方法</div>
+	<div class="container container1">
+		<div class="item">内容</div>
+		<div class="item">内容</div>
+		<div class="item">内容</div>
+	</div>
+	<div>text-align</div>
+	<div class="container container2">
+		<div class="item">需要在html解构中之间添加空白符(包括空格、换行符、制表符)才起作用</div>
+		<div class="item">只有text-align属性，内容不够一行的不起作用</div>
+		<div class="item">内容</div>
+	</div>
+	<div>after伪元素</div>
+	<div class="container container3">
+		<div class="item">使用text-align-last兼容性不好。</div>
+		<div class="item">使用伪元素:after让其挤到第二行，使原来元素占满第一行，触发了两端对齐</div>
+		<div class="item">设置父元素高度，并溢出隐藏，解决多余换行</div>
+	</div>
+	<div>column</div>
+	<div class="container container4">
+		<div class="item">子元素需要设置成block才有效</div>
+		<div class="item">内容</div>
+		<div class="item">内容</div>
+	</div>
+</body>
+</html>

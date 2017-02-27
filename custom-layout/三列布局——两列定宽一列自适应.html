@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>两列定宽一列自适应</title>
+	<style type="text/css">
+	.container{
+		border: 1px solid #000;
+		margin-bottom: 10px;
+	}
+	.left{
+		background: pink;
+		width: 100px;
+	}
+	.center{
+		background: yellow;
+		width: 100px;
+	}
+	.right{
+		background: lightblue;
+	}
+	p{
+		margin:0;
+	}
+
+	.container0{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container0 .left, .container0 .center{
+		float: left;
+		margin-right: 20px;
+	}
+	.container0 .right{
+		margin-left: 240px;
+	}
+
+	.container1{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container1 .left{
+		float: left;
+	}
+	.container1 .right{
+		float: left;
+		width: calc(100% - 240px);
+	}
+	.container1 .center{
+		float: left;
+		margin: 0 20px;
+	}
+
+
+	.container2{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container2 .left, .container2 .center{
+		float: left;
+		position: relative;
+		margin-right: 20px;
+	}
+	.container2 .rightWrap{
+		float: left;
+		width: 100%;
+		margin-left: -240px;
+	}
+	.container2 .rightWrap .right{
+		margin-left: 240px;
+	}
+
+	.container3{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container3 .left, .container3 .center{
+		float:left;
+		margin-right: 20px;
+	}
+	.container3 .right{
+		overflow: hidden;
+		zoom: 1;
+	}
+
+
+	.container4{
+		font-size: 0
+	}
+	.container4 .left,.container4 .right,.container4 .center{
+		display: inline-block;
+		font-size: 16px;
+		vertical-align: top;
+	}
+	.container4 .center{
+		margin: 0 20px;
+	}
+	.container4 .right{
+		width: calc(100% - 240px);
+	}
+
+
+	.container5{
+		font-size: 0
+	}
+	.container5 .left, .container5 .center, .container5 .rightWrap{
+		display: inline-block;
+		font-size: 16px;
+		vertical-align: top;
+	}
+	.container5 .left, .container5 .center{
+		margin-right: 20px;
+	}
+	.container5 .rightWrap{
+		width: 100%;
+		margin: 0 -240px;
+	}
+	.container5 .rightWrap .right{
+		margin-left: 240px;
+	}
+
+
+	.container6{
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+	}
+	.container6 .leftWrap, .container6 .right, .container6 .centerWrap{
+		display: table-cell;
+	}
+	.container6 .leftWrap, .container6 .centerWrap{
+		width: 120px;
+	}
+	.container6 .left, .container6 .center{
+		margin-right: 20px;
+	}
+
+
+	.container7{
+		position:relative;
+		height: 100px;
+	}
+	.container7 .left{
+		position: absolute;
+		left: 0;
+	}
+	.container7 .center{
+		position: absolute;
+		left: 120px;
+	}
+	.container7 .right{
+		position: absolute;
+		left: 240px;
+		right: 0;
+	}
+
+
+	.container8{
+		display: flex;
+	}
+	.container8 .center{
+		margin: 0 20px;
+	}
+	.container8 .right{
+		flex-grow: 1;
+	}
+	</style>
+</head>
+<body>
+	<div>思路一：float</div>
+
+	<div class="container container0">
+		<div class="left">
+			<p>float + margin</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div class="container container1">
+		<div class="left">
+			<p>float + margin+calc</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div class="container container2">
+		<div class="left">
+			<p>float + margin+(fix)</p>
+		</div>
+		<div class="center">
+				<p>内容</p>
+				<p>内容</p>
+			</div>
+		<div class="rightWrap">
+			<div class="right">
+				<p>aside</p>	
+			</div>	
+		</div>
+	</div>
+
+	<div class="container container3">
+		<div class="left">
+			<p>float + overflow</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div>思路二：inline-block</div>
+
+	<div class="container container4">
+		<div class="left">
+			<p>inline-block+calc</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div class="container container5">
+		<div class="left">
+			<p>inline-block+magin+(fix)</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="rightWrap">
+			<div class="right">
+				<p>aside</p>	
+			</div>		
+		</div>
+		
+	</div>
+
+	<div>思路三：table</div>
+
+	<div class="container container6">
+		<div class="leftWrap">
+			<div class="left">
+				<p>table</p>
+			</div>
+		</div>
+		<div class="centerWrap">
+			<div class="center">
+				<p>内容</p>
+				<p>内容</p>
+			</div>	
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+
+	<div>思路四：absolute</div>
+
+	<div class="container container7">
+		<div class="left">
+			<p>absolute</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div>思路五：flex</div>
+
+	<div class="container container8">
+		<div class="left">
+			<p>flex</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>两列布局， 一列内容撑开，一列自适应</title>
+	<style type="text/css">
+	.container{
+		border: 1px solid #000;
+		margin-bottom: 10px;
+	}
+	.left{
+		background: pink;
+	}
+	.right{
+		background: lightblue;
+	}
+	p{
+		margin:0;
+	}
+	.footer{
+		background: blue;
+	}
+
+
+	.container3{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container3 .left{
+		float:left;
+		margin-right: 20px;
+	}
+	.container3 .right{
+		float: left;
+		width: calc(100% - 220px);
+	}
+
+	.container4{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container4 .left{
+		float:left;
+		margin-right: 20px;
+	}
+	.container4 .right{
+		overflow: hidden;
+		zoom: 1;
+	}
+
+	.container7{
+		display: table;
+		width: 100%;
+	}
+	.container7 .leftWrap{
+		display: table-cell;
+		width: 0.1%;
+	}
+	.container7 .left{
+		margin-right: 20px;
+	}
+	.container7 .right{
+		display: table-cell;
+	}
+
+	.container8{
+		position: relative;
+		height: 100px;
+	}
+	.container8 .left{
+		position:absolute;
+		left:0;
+	}
+	.container8 .right{
+		position:absolute;
+		left: 220px;
+		right:0;
+	}
+
+	.container9{
+		display: flex;
+	}
+	.container9 .right{
+		flex-grow: 1;
+		margin-left: 20px;
+	}
+
+
+	</style>
+</head>
+<body>
+	<div>思路一：float</div>
+
+	<div class="container container4">
+		<div class="left">
+			<p>float + overflow</p>
+		</div>
+		<div class="right">
+			<p>生成BFC，来阻止浮动造成的文字环绕效果。</p>
+			<p>使用overflow不会改变元素的宽度属性，所以不需要重新设置宽度。由于设置overflow:hidden并不会触发IE6-浏览器的haslayout属性，所以需要设置zoom:1来兼容IE6-浏览器</p>
+		</div>
+	</div>
+
+	<div>思路二：table布局</div>
+
+	<div class="container container7">
+		<div class="leftWrap">
+			<div class="left">
+				<p>table</p>
+			</div>
+		</div>
+		<div class="right">
+			<p>若table元素不设置table-layout:fixed，则宽度由内容撑开。</p>
+			<p>在某个table-cell元素的外层嵌套一层div，并设置足够小的宽度如width:0.1%</p>
+		</div>
+	</div>
+
+	<div>思路三：flex</div>
+
+	<div class="container container9">
+		<div class="left">
+			<p>flex</p>
+		</div>
+		<div class="right">
+			<p>父元素无法由子元素撑开，所以要设定父元素高度</p>
+			<p>由于table-cell元素无法设置margin，若需要在元素间设置间距，需要增加结构</p>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

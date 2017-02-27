@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>两侧定宽中间自适应</title>
+	<style type="text/css">
+	.container{
+		border: 1px solid #000;
+		margin-bottom: 10px;
+	}
+	.left{
+		background: pink;
+		width: 100px;
+	}
+	.center{
+		background: yellow;
+	}
+	.right{
+		background: lightblue;
+		width: 100px;
+	}
+	p{
+		margin:0;
+	}
+
+	.container1{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container1 .left{
+		float: left;
+	}
+	.container1 .right{
+		float: left;
+	}
+	.container1 .center{
+		float: left;
+		width: calc(100% - 240px);
+		margin: 0 20px;
+	}
+
+
+	.container2{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container2 .left{
+		float: left;
+		position: relative;
+	}
+	.container2 .right{
+		float: left;
+		position: relative;
+	}
+	.container2 .centerWrap{
+		float: left;
+		width: 100%;
+		margin: 0 -100px;
+	}
+	.container2 .centerWrap .center{
+		margin: 0 120px;
+	}
+
+
+	.container3{
+		font-size: 0
+	}
+	.container3 .left,.container3 .right,.container3 .center{
+		display: inline-block;
+		font-size: 16px;
+		vertical-align: top;
+	}
+	.container3 .center{
+		width: calc(100% - 240px);
+		margin: 0 20px;
+	}
+
+
+	.container4{
+		font-size: 0
+	}
+	.container4 .left,.container4 .right,.container4 .centerWrap{
+		display: inline-block;
+		font-size: 16px;
+		vertical-align: top;
+	}
+	.container4 .centerWrap{
+		width: 100%;
+		margin: 0 -100px;
+	}
+	.container4 .centerWrap .center{
+		margin: 0 120px;
+	}
+
+
+	.container5{
+		display: table;
+		width: 100%;
+	}
+	.container5 .left,.container5 .right,.container5 .centerWrap{
+		display: table-cell;
+		table-layout: fixed;
+	}
+	.container5 .centerWrap .center{
+		margin: 0 20px;
+	}
+
+
+	.container6{
+		position:relative;
+		height: 100px;
+	}
+	.container6 .left{
+		position: absolute;
+		left: 0;
+	}
+	.container6 .center{
+		position: absolute;
+		left: 120px;
+		right: 120px;
+	}
+	.container6 .right{
+		position: absolute;
+		right: 0;
+	}
+
+
+	.container7{
+		display: flex;
+	}
+	.container7 .center{
+		flex-grow: 1;
+		margin: 0 20px;
+	}
+	</style>
+</head>
+<body>
+	<div>思路一：float</div>
+
+	<div class="container container1">
+		<div class="left">
+			<p>float + margin+calc</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div class="container container2">
+		<div class="left">
+			<p>float + margin+(fix)</p>
+		</div>
+		<div class="centerWrap">
+			<div class="center">
+				<p>内容</p>
+				<p>内容</p>
+			</div>	
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div>思路二：inline-block</div>
+
+	<div class="container container3">
+		<div class="left">
+			<p>inline-block+calc</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div class="container container4">
+		<div class="left">
+			<p>inline-block+magin+(fix)</p>
+		</div>
+		<div class="centerWrap">
+			<div class="center">
+				<p>内容</p>
+				<p>内容</p>
+			</div>	
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div>思路三：table</div>
+
+	<div class="container container5">
+		<div class="left">
+			<p>table</p>
+		</div>
+		<div class="centerWrap">
+			<div class="center">
+				<p>内容</p>
+				<p>内容</p>
+			</div>	
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+
+	<div>思路四：absolute</div>
+
+	<div class="container container6">
+		<div class="left">
+			<p>absolute</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div>思路五：flex</div>
+
+	<div class="container container7">
+		<div class="left">
+			<p>flex</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+
+
+</body>
+</html>

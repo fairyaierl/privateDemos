@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>垂直水平居中</title>
+	<style type="text/css">
+		.item{
+			background: lightblue;
+		}
+		.container{
+			background: green;
+		}
+
+		.container1{
+			text-align: center;
+			line-height: 30px;
+		}
+
+		.container2{
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			height: 100px;
+		}
+
+		.container3{
+			font-size: 0;
+			line-height: 400px;
+			text-align: center;
+		}
+		.container3 img{
+			vertical-align: middle;
+		}
+
+		.container4{
+			display: table-cell;
+			height: 100px;
+			width: 100px;
+			vertical-align: middle;
+		}
+		.container4 .item{
+			display: table;
+			margin: 0 auto;
+		}
+
+		.container5{
+			position: relative;
+			height: 100px;
+		}
+		.container5 .item{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+		}
+
+		.container6{
+			position: relative;
+			height: 100px;
+		}
+		.container6 .item{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right:0;
+			bottom:0;
+			margin: auto;
+			height: 80px;
+			width: 200px;
+		}
+
+		.container7{
+			position: relative;
+			height: 100px;
+		}
+		.container7 .item{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 80px;
+			width: 200px;
+			margin: -40px 0 0 -100px;
+		}
+
+		.container8{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100px;
+		}
+
+		.container9{
+			display: flex;
+			height: 100px;
+		}
+		.container9 .items{
+			margin: auto;
+		}
+	</style>
+</head>
+<body>
+	<div>text-align+line-height</div>
+	<div class="container container1">针对单行文本垂直居中，默认不设置高度时，文本本身就在一行中居中显示。</div>
+
+	<div>text-align+vertical-align</div>
+	<div class="container container2">
+		<div class="item">通过为table-cell元素设置vertical-align:middle，可使其子元素均实现垂直居中。这和表格里单元格的垂直居中是类似的。</div>
+	</div>
+
+	<div>若子元素是图片，通过设置父元素的行高来代替高度，且设置父元素的font-size为0</div>
+	<div class="container container3">
+		<img src="http://sandbox.runjs.cn/uploads/rs/26/ddzmgynp/img1.gif">
+	</div>
+	
+	<div>margin+vertical-align</div>
+	<div class="container container4">
+		<div class="item">父元素table-cell，子元素table</div>
+	</div>
+
+	<div>absolute+translate</div>
+	<div class="container container5">
+		<div class="item">translate: （-50%，-50%);</div>
+	</div>
+
+	<div>absolute+盒模型</div>
+	<div class="container container6">
+		<div class="item">子元素高度和宽度固定</div>
+	</div>
+
+	<div>absolute+负margin</div>
+	<div class="container container7">
+		<div class="item">子元素高度和宽度固定</div>
+	</div>
+
+	<div>flex</div>
+	<div class="container container8">
+		<div class="item">使用flex布局特性</div>
+	</div>
+
+	<div>flex+margin</div>
+	<div class="container container9">
+		<div class="item">flex+margin</div>
+	</div>
+
+</body>
+</html>
