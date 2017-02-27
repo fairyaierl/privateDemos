@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>等分布局</title>
+	<style type="text/css">
+	.container{
+		border: 1px solid #000;
+		margin-bottom: 10px;
+	}
+	.item{
+		background: pink;
+	}
+	p{
+		margin:0;
+	}
+
+	.container1{
+		overflow: hidden;
+	}
+	.container1 .item-wrap{
+		overflow: hidden;
+		margin-right:-25px;
+	}
+	.container1 .item{
+		float: left;
+		width: 25%;
+		padding-right:25px;
+		box-sizing: border-box;
+		background-clip: content-box;
+	}
+
+
+	.container2{
+		overflow: hidden;
+	}
+	.container2 .item-wrap{
+		overflow: hidden;
+		margin-right: -25px;
+	}
+	.container2 .item{
+		float:left;
+		width: calc(25% - 25px);
+		margin-right: 25px;
+	}
+
+	.container3{
+		overflow: hidden;
+	}
+	.container3 .item-wrap{
+		overflow: hidden;
+		margin-right: -25px;
+	}
+	.container3 .item{
+		float:left;
+		width: 25%;
+		background: lightblue;
+	}
+	.container3 .item .in{
+		margin-right: 25px;
+		background: pink;
+	}
+
+
+	.container4{
+		overflow: hidden;
+	}
+	.container4 .item-wrap{
+		font-size: 0;
+		margin-right: -25px;
+	}
+	.container4 .item{
+		display: inline-block;
+		vertical-align: top;
+		font-size: 16px;
+		box-sizing: border-box;
+		width: 25%;
+		padding-right: 25px;
+		background-clip: content-box;
+	}
+
+	.container5{
+		overflow: hidden;
+	}
+	.container5 .item-wrap{
+		font-size: 0;
+		margin-right: -25px;
+	}
+	.container5 .item{
+		display: inline-block;
+		vertical-align: top;
+		font-size: 16px;
+		width: calc(25% - 25px);
+		margin-right: 25px;
+	}
+
+	.container6{
+		overflow: hidden;
+	}
+	.container6 .item-wrap{
+		font-size: 0;
+		margin-right: -25px;
+	}
+	.container6 .item{
+		font-size: 16px;
+		display: inline-block;
+		vertical-align: top;
+		width: 25%;
+		background: lightblue;
+	}
+	.container6 .item .in{
+		margin-right: 25px;
+		background: pink;
+	}
+
+	.container7{
+		overflow: hidden;
+	}
+	.container7 .item-wrap{
+		display: table;
+		table-layout: fixed;
+		width: calc(100% + 25px);
+	}
+	.container7 .item{
+		display: table-cell;
+		width: 25%;
+		background: lightblue;
+	}
+	.container7 .item .in{
+		margin-right: 25px;
+		background: pink;
+	}
+
+
+	.container8{
+		display: flex;
+	}
+	.container8 .item{
+		flex: 1;  //此处不能为flex-grow
+	}
+	.container8 .item + .item{
+		margin-left: 25px;
+	}
+
+	
+	</style>
+</head>
+<body>
+	<div>思路一：float</div>
+
+	<div class="container container1">
+		<div class="item-wrap">
+			<div class="item">float + padding + background-clip</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>	
+		</div>
+	</div>
+
+	<div class="container container2">
+		<div class="item-wrap">
+			<div class="item">float + margin + calc</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>	
+		</div>
+	</div>
+
+	<div class="container container3">
+		<div class="item-wrap">
+			<div class="item">
+				<div class="in">float + margin + (fix)</div>
+			</div>
+			<div class="item">
+				<div class="in">2</div>
+			</div>
+			<div class="item">
+				<div class="in">3</div>
+			</div>
+			<div class="item">
+				<div class="in">4</div>
+			</div>	
+		</div>
+	</div>
+
+
+	<div>思路二：inline-block</div>
+
+	<div class="container container4">
+		<div class="item-wrap">
+			<div class="item">inline-block + padding + background-clip</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>	
+		</div>
+	</div>
+
+	<div class="container container5">
+		<div class="item-wrap">
+			<div class="item">inline-block + margin + calc</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>	
+		</div>
+	</div>
+
+	<div class="container container6">
+		<div class="item-wrap">
+			<div class="item">
+				<div class="in">inline + margin + (fix)</div>
+			</div>
+			<div class="item">
+				<div class="in">2</div>
+			</div>
+			<div class="item">
+				<div class="in">3</div>
+			</div>
+			<div class="item">
+				<div class="in">4</div>
+			</div>	
+		</div>
+	</div>
+
+	<div>思路三：table</div>
+
+	<div class="container container7">
+		<div class="item-wrap">
+			<div class="item">
+				<div class="in">table+margin</div>
+			</div>
+			<div class="item">
+				<div class="in">2</div>
+			</div>
+			<div class="item">
+				<div class="in">3</div>
+			</div>
+			<div class="item">
+				<div class="in">4</div>
+			</div>	
+		</div>
+	</div>
+
+	<div>思路四：flex</div>
+
+	<div class="container container8">
+		<div class="item">flex</div>
+		<div class="item">2</div>
+		<div class="item">3</div>
+		<div class="item">4</div>	
+	</div>
+
+</body>
+</html>

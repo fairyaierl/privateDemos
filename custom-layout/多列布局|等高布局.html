@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>等高布局</title>
+	<style type="text/css">
+		.container{
+			border: 1px solid #000;
+			margin-bottom: 10px;
+		}
+		.left{
+			background: pink;
+		}
+		.center{
+			background: yellow;
+		}
+		.right{
+			background: lightblue;
+		}
+		p{
+			margin:0;
+		}
+
+		.container1{
+			position: relative;
+		}
+		.container1 .left{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 200px;
+		}
+		.container1 .right{
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 300px;
+		}
+		.container1 .center{
+			box-sizing: border-box;
+			padding: 0 10px;
+			border-left: 200px solid pink;
+			border-right: 300px solid lightblue;
+			background-clip: content-box;
+		}
+
+		.container2{
+			overflow: hidden;
+		}
+		.container2 .left, .container2 .centerWrap, .container2 .right{
+			float: left;
+			padding-bottom: 9999px;
+			margin-bottom: -9999px;
+		}
+		.container2 .left,  .container2 .right{
+			width: 25%;
+		}
+		.container2 .centerWrap{
+			width: 50%;
+		}
+		.container2 .centerWrap .center{
+			margin: 0 10px;
+		}
+
+
+		.container3{
+			display: table;
+			table-layout: fixed;
+			width:100%;
+		}
+		.container3 .left, .container3 .centerWrap, .container3 .right{
+			display: table-cell;
+		}
+		.container3 .center{
+			margin: 0 10px;
+		}
+
+
+		.container4{
+			height:100px;
+			position: relative;
+		}
+		.container4 .left, .container4 .center, .container4 .right{
+			position: absolute;
+			top:0;
+			bottom:0;
+		}
+		.container4 .left{
+			left: 0;
+			width: 100px;
+		}
+		.container4 .center{
+			left: 110px;
+			right: 110px;
+		}
+		.container4 .right{
+			width: 100px;
+			right: 0;
+		}
+
+		.container5{
+			display: flex;
+		}
+		.container5 div{
+			flex: 1;
+		}
+		.container5 .center{
+			margin: 0 10px;
+		}
+		
+	</style>
+</head>
+<body>
+	<div>伪等高</div>
+	<div>边框模拟</div>
+
+	<div class="container container1">
+		<div class="left">left</div>
+		<div class="center">
+			<p>元素的边框颜色来伪装左右两个兄弟元素的背景色。然后将左右两个透明背景的元素使用absolute覆盖在中间元素的左右边框上，实现视觉上的等高效果。</p>
+			<p>[注意]左右两侧元素的内容高度不能大于中间元素内容高度，否则无法撑开容器高度</p>
+		</div>
+		<div class="right">right</div>
+	</div>
+
+	<div>负margin</div>
+
+	<div class="container container2">
+		<div class="left">left</div>
+		<div class="centerWrap">
+			<div class="center">
+				<p>因为背景是在padding区域显示的，设置一个大数值的padding-bottom，再设置相同数值的负的margin-bottom，使背景色铺满元素区域，又符合元素的盒模型的计算公式，实现视觉上的等高效果</p>
+				<p>[注意]如果页面中使用&lt;a&gt;锚点跳转时，将会隐藏部分文字信息</p>
+				<p>[注意]如果页面中的背景图片定位到底部，将会看不到背景图片</p>
+			</div>
+		</div>
+		<div class="right">right</div>
+	</div>
+
+	<div>真等高</div>
+	<div>table</div>
+
+	<div class="container container3">
+		<div class="left">left</div>
+		<div class="centerWrap">
+			<div class="center">
+				<p>table元素中的table-cell元素默认就是等高的</p>
+			</div>	
+		</div>
+		<div class="right">right</div>
+	</div>
+
+	<div>absolute</div>
+
+	<div class="container container4">
+		<div class="left">left</div>
+		<div class="center">
+			<p>设置子元素的top:0;bottom:0;使得所有子元素的高度都和父元素的高度相同，实现等高效果</p>
+		</div>
+		<div class="right">right</div>
+	</div>
+
+	<div>flex</div>
+
+	<div class="container container5">
+		<div class="left">left</div>
+		<div class="center">
+			<p>flex中的伸缩项目默认都拉伸为父元素的高度，也实现了等高效果</p>
+		</div>
+		<div class="right">right</div>
+	</div>
+
+</body>
+</html>
