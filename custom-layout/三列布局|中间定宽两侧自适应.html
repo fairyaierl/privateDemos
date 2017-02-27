@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>中间定宽两侧自适应</title>
+	<style type="text/css">
+	.container{
+		border: 1px solid #000;
+		margin-bottom: 10px;
+	}
+	.left{
+		background: pink;
+	}
+	.center{
+		background: yellow;
+		width: 100px;
+	}
+	.right{
+		background: lightblue;
+	}
+	p{
+		margin:0;
+	}
+
+
+	.container1{
+		overflow: hidden;
+		zoom: 1;
+	}
+	.container1 .left{
+		float: left;
+	}
+	.container1 .center{
+		float: left;
+		margin: 0 20px;
+	}
+	.container1 .right{
+		overflow: hidden;
+	}
+
+
+	.container2{
+		display: table;
+		width: 100%;
+	}
+	.container2 .leftWrap, .container2 .centerWrap, .container2 .right{
+		display: table-cell;
+	}
+	.container2 .leftWrap{
+		width: 0.1%;
+	}
+	.container2 .centerWrap{
+		width: 120px;
+	}
+	.container2 .leftWrap .left, .container2 .centerWrap .center{
+		margin-right: 20px;
+	}
+
+
+	.container3{
+		display: flex;
+	}
+	.container3 .center{
+		margin: 0 20px;
+	}
+	.container3 .right{
+		flex-grow: 1;
+	}
+	</style>
+</head>
+<body>
+	<div>思路一：float</div>
+
+	<div class="container container1">
+		<div class="left">
+			<p>float</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div>思路二：table</div>
+
+	<div class="container container2">
+		<div class="leftWrap">
+			<div class="left">
+				<p>table</p>
+			</div>
+		</div>
+		<div class="centerWrap">
+			<div class="center">
+				<p>内容</p>
+				<p>内容</p>
+			</div>	
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+	<div>思路三：flex</div>
+
+	<div class="container container3">
+		<div class="left">
+			<p>flex</p>
+		</div>
+		<div class="center">
+			<p>内容</p>
+			<p>内容</p>
+		</div>
+		<div class="right">
+			<p>aside</p>	
+		</div>
+	</div>
+
+
+
+</body>
+</html>
