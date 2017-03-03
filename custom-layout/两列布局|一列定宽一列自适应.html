@@ -162,6 +162,21 @@
 	}
 
 
+/*	.clearfix{
+		overflow: hidden;
+		*zoom: 1;  
+	}  */
+
+	.clearfix::before,  
+	.clearfix::after {  
+		clear: both;
+		overflow: hidden;
+		height: 0;
+		display: table;
+		content: '';
+	}
+
+
 	</style>
 </head>
 <body>
@@ -173,7 +188,7 @@
 		<div class="right">
 			<p>[缺点1]IE6-浏览器下3像素bug，具体表现在右侧首行文字会向右偏移3px。解决办法是在left元素上设置margin-right: -100px</p>
 			<p>[缺点2]当右侧容器中有元素清除浮动时，会使该元素不与左侧浮动元素同行，从而出现文字下沉现象</p>
-		</div>	
+		</div>
 	</div>
 
 	<div class="container container2">
@@ -185,7 +200,8 @@
 				<p>计算后的rightWrap的负margin值，使两列元素在同一行显示。两列之间的间距由.right的margin值确定。</p>
 				<p>由于右侧元素会层叠在左侧元素之上，.left需要使用relative来提升层级</p>
 			</div>
-		</div>	
+		</div>
+		<div class="footer clearfix" style="background: blue;">footer</div>
 	</div>
 
 	<div class="container container3">

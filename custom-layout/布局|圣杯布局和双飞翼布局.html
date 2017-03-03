@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>圣杯布局和双飞翼布局</title>
+	<style type="text/css">
+	body,p{margin: 0;}
+	.top,.bottom{
+	    height: 30px;
+	}
+	.middle{
+	    padding: 0 120px;
+	    overflow: hidden;
+	}
+	.main{
+	    width: 100%;
+	    float: left;
+	}
+	.left,.right{
+	    float: left;
+	    width: 100px;    
+	    position: relative;
+	}
+	.left{
+	    margin-left: -100%;
+	    left: -120px;
+	}
+	.right{
+	    margin-left: -100px;
+	    right: -120px;
+	}
+</style>
+</head>
+<body>
+
+<div class="parent" id="parent" style="background-color: lightgrey;">
+    <div class="top" style="background-color: lightblue;">
+        <p>top</p>
+    </div>  
+    <div class="middle" style="background-color: pink;">
+        <div class="main" style="background-color: lightcoral;">
+            <p>main</p>
+            <p>main</p>
+        </div>
+        <div class="left" style="background-color: orange;">
+            <p>left</p>
+        </div>
+        <div class="right" style="background-color: lightsalmon;">
+               <p>right</p>
+        </div>
+    </div>          
+    <div class="bottom" style="background-color: lightgreen;">
+        <p>bottom</p>
+    </div>        
+</div>
+
+</body>
+</html>
