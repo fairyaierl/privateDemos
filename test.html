@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		Function.prototype.bind = Function.prototype.bind || function(context) {
+			return function(){
+				var self = this;
+				return function(){
+					self.apply(context, arguments);
+				}
+			}
+		}
+
+		//使用了函数柯里化
+
+
+		function fn(n) {
+			if(n>31){
+				return
+			}
+			var result = [];
+			for (var i=0;i<n;i++){
+				var num = parseInt(Math.random()*30) + 2;
+				while(result.indexOf(num)>=0){
+					num = parseInt(Math.random()*30) + 2;
+				}
+				result.push(num);
+			}
+			return result;
+		}
+	</script>
+
+</body>
+</html>
