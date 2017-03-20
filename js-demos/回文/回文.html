@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>回文</title>
+</head>
+<body>
+<script type="text/javascript">
+function isPlalindrome(str) {
+	if (typeof str !== "string") {
+		throw Error("the type of input should be string")
+	}
+	var len = str.length;
+	for (var i = 0; i <= len / 2; i++) {
+		if (str[i] !== str[len - i - 1]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+console.log('牙刷刷牙 ' + isPlalindrome('牙刷刷牙'));
+console.log('racecar ' + isPlalindrome('racecar'));
+console.log('武大郎卖炊饼 ' + isPlalindrome("武大郎卖炊饼"));
+</script>
+</body>
+</html>
