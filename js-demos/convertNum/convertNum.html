@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	function convertNum(n, base) {
+		if(typeof base!="number"){
+			throw Error("wrong type of base")
+		}
+		if(base>9||base<2){
+			throw Error("wrong base range")
+		}
+		if(n<0) {
+			throw Error("don't support negative number")
+		}
+		var stack = [];
+		while (n / base != 0) {
+			x = n % base;
+			stack.push(x);
+			n = parseInt(n / base);
+		}
+		var result = "";
+		for (var i = stack.length-1; i >= 0; i--) {
+			result += stack[i]
+		}
+		return result
+	}
+</script>
+
+</body>
+</html>

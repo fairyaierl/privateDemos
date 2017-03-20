@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>fibonacci</title>
+</head>
+<body>
+	<script type="text/javascript">
+	function fabonacci(n) {
+		if (n < 0) {
+			throw Error("wrong input")
+		}
+		if (n == 0) {
+			return 0
+		} else if (n == 1) {
+			return 1
+		} else {
+			return fabonacci(n - 1) + fabonacci(n - 2)
+		}
+	}
+
+	function fabonacci2(n) {
+		if (n < 0) {
+			throw Error("wrong input")
+		}
+		if (n == 0) {
+			return 0
+		} else if (n == 1) {
+			return 1
+		} else {
+			var f1 = 0,
+				f2 = 1,
+				f = 0;
+			for (var i = 0; i <= n - 2; i++) {
+				f = f1+f2;
+				f1 = f2;
+				f2 = f;
+			}
+			return f
+		}
+	}
+	</script>
+</body>
+</html>
