@@ -1,0 +1,209 @@
+#!/usr/bin/env ruby
+class String
+  def black;          "\e[30m#{self}\e[0m" end
+  def red;            "\e[31m#{self}\e[0m" end
+  def green;          "\e[32m#{self}\e[0m" end
+  def brown;          "\e[33m#{self}\e[0m" end
+  def blue;           "\e[34m#{self}\e[0m" end
+  def magenta;        "\e[35m#{self}\e[0m" end
+  def cyan;           "\e[36m#{self}\e[0m" end
+  def gray;           "\e[37m#{self}\e[0m" end
+  def bg_black;       "\e[40m#{self}\e[0m" end
+  def bg_red;         "\e[41m#{self}\e[0m" end
+  def bg_green;       "\e[42m#{self}\e[0m" end
+  def bg_brown;       "\e[43m#{self}\e[0m" end
+  def bg_blue;        "\e[44m#{self}\e[0m" end
+  def bg_magenta;     "\e[45m#{self}\e[0m" end
+  def bg_cyan;        "\e[46m#{self}\e[0m" end
+  def bg_gray;        "\e[47m#{self}\e[0m" end
+  def bold;           "\e[1m#{self}\e[22m" end
+  def italic;         "\e[3m#{self}\e[23m" end
+  def underline;      "\e[4m#{self}\e[24m" end
+  def blink;          "\e[5m#{self}\e[25m" end
+  def reverse_color;  "\e[7m#{self}\e[27m" end
+end
+def remove_comment(message)
+  message.lines.map(&:strip).select{ |line| !line.start_with?('#') }.join("\n")
+end
+def strip_message(message)
+  lines = message.lines
+  return '' if lines.empty?
+  while lines[-1].strip.empty?
+    lines.pop
+  end
+  lines.join
+end
+def get_header
+  $message.lines[0]
+end
+# 在获取footer之后调用
+def get_body
+  lines = $message.lines
+  #remove header
+  lines.shift
+  # remove footer
+  $footer.lines.length.times{ lines.pop }
+  lines.join
+end
+def get_footer
+  footer = Array.new
+  $message.lines.reverse.each do |line|
+    if line.start_with?("Closes")
+      footer.push(line)
+    else
+      break
+    end
+  end
+  footer.reverse.join
+end
+$message_file = ARGV[0]
+$message = File.read($message_file)
+# 删除diff代码
+$message = $message[0..$message.index(/# Everything below will be removed/) || -1]
+# 删除注释代码
+$message = remove_comment($message)
+# 删除首尾空行
+$message = strip_message($message)
+$header = get_header
+$footer = get_footer
+$body   = get_body
+$errors = []
+$regex = /^(\w*)(\(\w*\))?:( ?)(.*)$/
+$regex_type = /^(feat|fix|merge|docs|style|refactor|perf|test|chore)$/
+EXIT_CODE_ALLOW_COMMIT  = 0
+EXIT_CODE_REJECT_COMMIT = 1
+def interactive?
+  $stdin.tty?
+end
+def count_pysical_length(str = '')
+  str.gsub(/\p{Han}/, '00').length
+end
+def ask_force_commit
+  return EXIT_CODE_REJECT_COMMIT unless interactive?
+  puts "\n你还要强制提交吗? [y/n]"
+  input = $stdin.gets
+  puts input
+  input =~ /y/i ? EXIT_CODE_ALLOW_COMMIT : EXIT_CODE_REJECT_COMMIT
+end
+def validate_type_empty(type = '')
+  $errors.push('type不能为空') if count_pysical_length(type) === 0
+end
+def validate_type_right(type = '')
+  return if count_pysical_length(type) === 0
+  unless $regex_type.match(type)
+    $errors.push(
+%{#{type}不是约定的关键字，请使用以下关键字:
+    #{'*---------------------------------------------------------------------*'.green}
+    #{'|'.green}  feat     ：新功能(feature)                                         #{'|'.green}
+    #{'|'.green}  fix      ：bug修复                                                 #{'|'.green}
+    #{'|'.green}  merge    ：合并分支                                                #{'|'.green}
+    #{'|'.green}  docs     ：文档修改                                                #{'|'.green}
+    #{'|'.green}  style    ：缩紧，空格，换行，大小写等调整（不影响代码运行的变动）  #{'|'.green}
+    #{'|'.green}  refactor ：代码重构（代码结构调整，不影响功能）                    #{'|'.green}
+    #{'|'.green}  perf     ：性能优化（improve performance）                         #{'|'.green}
+    #{'|'.green}  test     ：增加测试                                                #{'|'.green}
+    #{'|'.green}  chore    ：系统构建，打包                                          #{'|'.green}
+    #{'*---------------------------------------------------------------------*'.green}}
+    )
+  end
+end
+def validate_scope_empty(scope = '')
+  $errors.push('scope括号内的内容不能为空') if scope === '()'
+end
+def validate_space_following_colon(space = '')
+  $errors.push('冒号后面需要有空格') if space === ''
+end
+def validete_subject_empty(subject = '')
+  $errors.push('subject不能为空') if count_pysical_length(subject) === 0
+end
+def validate_subject_length(subject = '')
+  $errors.push('subject不能超过50个英文字符长度') if count_pysical_length(subject) > 50
+end
+def validate_message(matches)
+  type    = matches[1]
+  scope   = matches[2]
+  space   = matches[3]
+  subject = matches[4]
+  $errors.clear
+  validate_type_empty(type)
+  validate_type_right(type)
+  validate_scope_empty(scope)
+  validate_space_following_colon(space)
+  validete_subject_empty(subject)
+  validate_subject_length(subject)
+  $errors
+end
+def error_message
+  str = ''
+  $errors.each_with_index do |error, index|
+    str += "#{index + 1}). "
+    str += error
+    str += "\n"
+  end
+  str
+end
+def check_empty
+  if $message.length === 0
+    puts '请输入commit message！'.red.bold.bg_cyan
+    exit 1
+  end
+end
+def check_header
+  exit(0) if $header.start_with?('Merge')
+  exit(0) if $header.start_with?('Revert')
+  matches = $regex.match($header)
+  if !matches
+    $errors.push(
+%{message请使用如下格式<type>(<scope>): <subject>
+    #{'* type为提交类型，scope为影响范围(选填)，subject为变更描述。type合法关键字如下'.italic.red}:
+    #{'*---------------------------------------------------------------------*'.green}
+    #{'|'.green}  feat     ：新功能(feature)                                         #{'|'.green}
+    #{'|'.green}  fix      ：bug修复                                                 #{'|'.green}
+    #{'|'.green}  merge    ：合并分支                                                #{'|'.green}
+    #{'|'.green}  docs     ：文档修改                                                #{'|'.green}
+    #{'|'.green}  style    ：缩紧，空格，换行，大小写等调整（不影响代码运行的变动）  #{'|'.green}
+    #{'|'.green}  refactor ：代码重构（代码结构调整，不影响功能）                    #{'|'.green}
+    #{'|'.green}  perf     ：性能优化（improve performance）                         #{'|'.green}
+    #{'|'.green}  test     ：增加测试                                                #{'|'.green}
+    #{'|'.green}  chore    ：系统构建，打包                                          #{'|'.green}
+    #{'*---------------------------------------------------------------------*'.green}}
+    )
+  else
+    validate_message(matches)
+  end
+end
+def check_body
+  lines = $body.lines.map(&:strip)
+  return if lines.empty?
+  if !lines[0].empty?
+    $errors.push('header和body之间需要插入空行')
+  end
+  if !$footer.empty? && !lines[-1].empty?
+    $errors.push('body和footer之间需要插入空行')
+  end
+end
+def check_footer
+end
+def show_error_message
+  puts '您的commit message不符合规范，有如下问题：'.red.bold
+  puts error_message
+  puts "\n请修改后重新提交，您刚刚的提交是酱紫的".green
+  puts "#{$message.blue}"
+  puts "\n[查看规范]：" + "http://doc.qima-inc.com/pages/viewpage.action?pageId=10692077".underline
+  exit ask_force_commit
+end
+def check_message
+  # puts "header:\n#{$header}"
+  # puts "body  :\n#{$body}"
+  # puts "footer:\n#{$footer}"
+  check_empty
+  check_header
+  check_body
+  check_footer
+  if $errors.empty?
+    exit 0
+  else
+    show_error_message
+  end
+end
+check_message

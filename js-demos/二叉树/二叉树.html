@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>二叉树</title>
+</head>
+<body>
+<script type="text/javascript">
+	function Node(data, left, right) {
+        this.data = data;
+        this.left = left ? left : null;
+        this.right = right ? right : null;
+        this.show = show;
+    }
+
+    function show () {
+        return this.data;
+    }
+
+    function BST () {
+        this.root = null;
+        this.insert = insert;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.find = find;
+        this.remove = remove;
+    }
+
+    function insert(data) {
+        var n = new Node(data);
+
+        if (this.root === null) {
+            this.root = n;
+        } else {
+            var current = this.root,
+                parent ;
+
+            while (true) {
+                parent = current;
+
+                if (data < current.data) {
+                    current = current.left;
+                    if (current === null) {
+                        parent.left = n;
+                        break;
+                    }
+                } else {
+                    current = current.right;
+
+                    if (current === null) {
+                        parent.right = n;
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
+    
+    //中序遍历
+    function inOrder(node) {
+        if (node != null) {
+            inOrder(node.left);
+
+            console.log(node.show() + ' ');
+
+            inOrder(node.right);
+        }
+    }
+
+    //前序遍历
+    function preOrder(node) {
+        if (node != null) {
+            console.log(node.show() + ' ');
+
+            preOrder(node.left);
+
+            preOrder(node.right);
+        }
+    }
+
+    //后序遍历
+    function postOrder(node) {
+        if (node != null) {
+            postOrder(node.left);
+
+            postOrder(node.right);
+
+            console.log(node.show() + ' ');
+        }
+    }
+
+    function minValue() {
+        var current = this.root;
+
+        while (current.left !== null) {
+            current = current.left;
+        }
+
+        return current.data;
+    }
+
+    function maxValue() {
+        var current = this.root;
+
+        while (current.right !== null) {
+            current = current.right;
+        }
+
+        return current.data;
+    }
+
+    function find (value) {
+        var current = this.root;
+
+        while (current !== null) {
+            if (value === current.data) {
+                return current;
+            } else if (value < current.data) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+
+        return null;
+    }
+
+    function getSmallestNode(node) {
+        var current = node;
+        while(current.left !== null) {
+            current = current.left;
+        }
+        return current;
+    }
+
+    function remove(data) {
+        this.root = removeNode(this.root, data);
+    }
+
+    function removeNode(node, data) {
+        if (node === null) {
+            return null;
+        }
+
+        if (data === node.data) {
+            if (node.left === null && node.right === null) {
+                return null;
+            } else if (node.left === null) {
+                return node.right;
+            } else if (node.right === null) {
+                return node.left;
+            }
+
+            // have both children
+            var _tmpNode = getSmallestNode(node.right);
+            node.data = _tmpNode.data;
+            node.right = removeNode(node.right, _tmpNode.data);
+            return node;
+        } else if (data < node.data) {
+            node.left = removeNode(node.left, data);
+            return node;
+        } else {
+            node.right = removeNode(node.right, data);
+            return node;
+        }
+    }
+
+
+    var nums = new BST();
+    nums.insert(23);
+    nums.insert(45);
+    nums.insert(16);
+    nums.insert(37);
+    nums.insert(3);
+    nums.insert(99);
+    nums.insert(22);
+    console.log('inOrder :\n');
+    inOrder(nums.root);
+    console.log('preOrder :\n');
+    preOrder(nums.root);
+    console.log('postOrder :\n');
+    postOrder(nums.root);
+    console.log('minValue :\n');
+    console.log(nums.minValue());
+    console.log('maxValue :\n');
+    console.log(nums.maxValue());
+
+    var found = nums.find(16);
+
+    if (found === null) {
+        console.log('no found 16');
+    } else {
+        console.log('found 16');
+    }
+
+    nums.remove(16);
+
+
+    inOrder(nums.root);
+</script>
+
+</body>
+</html>

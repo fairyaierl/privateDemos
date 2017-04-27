@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>基数排序</title>
+</head>
+<body>
+<script type="text/javascript">
+function Queue(){
+	this.dataSource = [];
+	this.front = front;
+	this.back = back;
+	this.enqueue = enqueue;
+	this.dequeue = dequeue;
+	this.isEmpty = isEmpty;
+	this.toString = toString;
+	this.count = count;
+}
+function count(){
+	return this.dataSource.length;
+}
+function enqueue(item){
+	this.dataSource.push(item);
+}
+function dequeue(item){
+	return this.dataSource.shift();
+}
+function front(){
+	return this.dataSource[0];
+}
+function back(){
+	return this.dataSource[this.dataSource.length-1];
+}
+function isEmpty(){
+	return this.dataSource.length === 0;
+}
+function toString(){
+	return this.dataSource.join('\n');
+}
+
+var nums = [91, 46, 85, 15, 92, 6, 31, 22],
+        queues = [];
+
+for(var i=0;i<10;i++){
+	queues[i] = new Queue();
+}
+
+function distribute(nums, digit) {
+	for(var i=0; i<nums.length; i++) {
+		if(digit==1){
+			queues[nums[i]%10].enqueue(nums[i])
+		}else if(digit==10) {
+			queues[parseInt(nums[i]/10)].enqueue(nums[i])
+		}
+	}
+}
+
+function collect(queues, nums) {
+	for(var i=0; i<queues.length; i++) {
+		while(!queues[i].isEmpty()) {
+			nums.push(queues[i].dequeue())
+		}
+	}
+}
+
+distribute(nums,1);
+
+nums = [];
+
+collect(queues, nums);
+
+distribute(nums, 10);
+
+nums = []
+
+collect(queues, nums);
+
+console.log(nums);
+
+	
+</script>
+</body>
+</html>
