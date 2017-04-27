@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# pull rebase 检查
+IS_REBASE=$(git config pull.rebase)
+
+if [[ $IS_REBASE != false ]]; then
+  git config --replace-all pull.rebase false
+  printf '\n\033[32m Massage:自动设置git config pull.rebase => false \033[0m\n\n'
+fi
+
+# fast forwatd 检查
+FAST_FORWARD=$(git config merge.ff)
+
+if [[ $FAST_FORWARD != false ]]; then
+  git config --replace-all merge.ff false
+  printf '\n\033[32m Massage:已自动设置git config --global merge.ff false \033[0m\n'
+fi
